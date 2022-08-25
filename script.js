@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		[2, 4, 6],
 	]
 
-	function handleResultValidatio() {
+	function handleResultValidation() {
 		let roundWon = false
 		for (let i = 0; i <= 7; i++) {
 			const winCondition = winningConditions[i]
@@ -38,6 +38,13 @@ window.addEventListener('DOMContentLoaded', () => {
 				break
 			}
 		}
+		if (roundWon) {
+			announce(currentPlayer === 'X' ? PLAYERX_WON : PLAYERO_WON)
+			isGameActive = false
+			return
+		}
+
+		if (!board.includes('')) announce(TIE)
 	}
 
 	const announce = (type) => {
@@ -52,6 +59,17 @@ window.addEventListener('DOMContentLoaded', () => {
 				announcer.innerText = 'Tie'
 		}
 		announcer.classList.remove('hidden')
+	}
+
+	const isValidAction = (tile) => {
+		if (tile.innerText === 'X' || tile.innerText === 'O') {
+			return false
+		}
+		return true
+	}
+
+	const updateBoard = (index) => {
+		board[index] = currentPlayer
 	}
 
 	const changePlayer = () => {
@@ -69,6 +87,22 @@ window.addEventListener('DOMContentLoaded', () => {
 			handleResultValidation()
 			changePlayer()
 		}
+	}
+
+	const resetBoard = () => {
+		board = ['', '', '', '', '', '', '', '', '']
+		isGameActive = true
+		announcer.innerText = ''
+
+		if (currentPlayer === 'O') {
+			changePlayer()
+		}
+
+		tiles.forEach((tile) => {
+			tile.innerText = ''
+			tile.classList.remove('playerX')
+			tile.classList.remove('playerO')
+		})
 	}
 
 	tiles.forEach((tile, index) => {

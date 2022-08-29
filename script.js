@@ -111,13 +111,3 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	resetButton.addEventListener('click', resetBoard)
 })
-
-// Gameboard Object - module
-
-// Player Object - factory
-
-// Game Logic - module
-
-// Display Logic - module
-
-// AI Logic - factory?
